@@ -1,0 +1,48 @@
+msgid ""
+msgstr ""
+"Language: zh_Hans\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Add instance"
+msgstr "添加实例"
+
+msgid "Config"
+msgstr "配置"
+
+msgid "Disabled"
+msgstr "已禁用"
+
+msgid "Enabled"
+msgstr "启用"
+
+msgid "FRP Client"
+msgstr "FRP 客户端"
+
+msgid "Instances"
+msgstr "实例"
+
+msgid "Invalid instance name"
+msgstr "实例名称无效"
+
+msgid "Name"
+msgstr "名称"
+
+msgid "Run multiple independent frpc processes using TOML files in %s. frpc version: %s"
+msgstr "使用 %s 中的 TOML 文件运行多个独立的 frpc 进程。frpc 版本：%s"
+
+msgid "Running"
+msgstr "运行中"
+
+msgid "Status"
+msgstr "状态"
+
+msgid "Stopped"
+msgstr "已停止"
+
+msgid "The instance name must be unique."
+msgstr "实例名称不能重复。"
+
+msgid "Use 1-64 letters, numbers, underscores or hyphens, starting with a letter or number."
+msgstr "请输入 1 至 64 个字符，只能包含字母、数字、下划线或连字符，并以字母或数字开头。"

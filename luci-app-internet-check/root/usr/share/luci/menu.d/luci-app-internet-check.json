@@ -1,0 +1,14 @@
+{
+	"admin/services/internet-check": {
+		"title": "Network Check",
+		"order": 65,
+		"action": {
+			"type": "view",
+			"path": "internet-check/config"
+		},
+		"depends": {
+			"acl": [ "luci-app-internet-check" ],
+			"uci": { "internet-check": true }
+		}
+	}
+}

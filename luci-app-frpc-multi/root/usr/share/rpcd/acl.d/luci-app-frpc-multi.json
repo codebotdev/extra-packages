@@ -1,0 +1,21 @@
+{
+	"luci-app-frpc-multi": {
+		"description": "Grant access to frpc multi-instance configuration",
+		"read": {
+			"uci": [ "frpc-multi" ],
+			"ubus": {
+				"service": [ "list" ]
+			},
+			"file": {
+				"/etc/frp/frpc.d/*": [ "read" ],
+				"/usr/bin/frpc-multi": [ "exec" ]
+			}
+		},
+		"write": {
+			"uci": [ "frpc-multi" ],
+			"file": {
+				"/etc/frp/frpc.d/*": [ "write" ]
+			}
+		}
+	}
+}

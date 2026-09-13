@@ -1,0 +1,17 @@
+{
+	"luci-app-internet-check": {
+		"description": "Grant access to network check configuration",
+		"read": {
+			"file": {
+				"/var/run/internet-check.state": [ "read" ]
+			},
+			"ubus": {
+				"service": [ "list" ]
+			},
+			"uci": [ "internet-check" ]
+		},
+		"write": {
+			"uci": [ "internet-check" ]
+		}
+	}
+}

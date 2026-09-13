@@ -1,0 +1,4 @@
+CONFIG_PACKAGE_extra-repo=y
+CONFIG_PACKAGE_luci-app-frpc-multi=y
+CONFIG_PACKAGE_luci-app-internet-check=y
+CONFIG_PACKAGE_luci-app-openclash=y
