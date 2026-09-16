@@ -1,7 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_VERSION:=1.0.0
-PKG_RELEASE:=7
+PKG_RELEASE:=11
 
 LUCI_TITLE:=LuCI support for frpc multi-instance client
 LUCI_DEPENDS:=+luci-base +frpc-multi

@@ -3,9 +3,11 @@
 		"description": "Grant access to network check configuration",
 		"read": {
 			"file": {
+				"/tmp/run/internet-check.state": [ "read" ],
 				"/var/run/internet-check.state": [ "read" ]
 			},
 			"ubus": {
+				"file": [ "read" ],
 				"service": [ "list" ]
 			},
 			"uci": [ "internet-check" ]

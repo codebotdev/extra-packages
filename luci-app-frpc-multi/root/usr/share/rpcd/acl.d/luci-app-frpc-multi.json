@@ -4,6 +4,7 @@
 		"read": {
 			"uci": [ "frpc-multi" ],
 			"ubus": {
+				"file": [ "read", "exec" ],
 				"service": [ "list" ]
 			},
 			"file": {
@@ -12,6 +13,9 @@
 			}
 		},
 		"write": {
+			"ubus": {
+				"file": [ "write", "remove" ]
+			},
 			"uci": [ "frpc-multi" ],
 			"file": {
 				"/etc/frp/frpc.d/*": [ "write" ]

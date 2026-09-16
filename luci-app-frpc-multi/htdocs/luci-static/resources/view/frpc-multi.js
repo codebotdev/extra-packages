@@ -2,6 +2,7 @@
 'require view';
 'require form';
 'require fs';
+'require poll';
 'require rpc';
 'require uci';
 
@@ -17,6 +18,51 @@ const callServiceList = rpc.declare({
 
 function configPath(name) {
 	return CONFIG_DIR + name + '.toml';
+}
+
+function verifyConfig(name, content) {
+	if (!content.trim())
+		return Promise.reject(new Error(_('Configuration must not be empty.')));
+	const temporary = CONFIG_DIR + '.verify-' + name + '-' + Date.now() + '-' +
+		Math.random().toString(36).slice(2) + '.toml';
+	return fs.write(temporary, content, 384).then(function() {
+		return fs.exec('/usr/bin/frpc-multi', ['verify', '-c', temporary]);
+	}).then(function(result) {
+		if (result.code !== 0)
+			throw new Error(_('Configuration validation failed:') + '\n' +
+				(result.stderr || result.stdout || _('Unknown error')));
+	}).finally(function() {
+		return L.resolveDefault(fs.remove(temporary), null);
+	});
+}
+
+function readConfig(name) {
+	return fs.read(configPath(name)).catch(function(error) {
+		throw new Error(_('Unable to read configuration file:') + ' ' + configPath(name) +
+			'\n' + error.message);
+	});
+}
+
+function writeConfig(sectionId, name, content, oldName) {
+	const path = configPath(name);
+	return fs.read(path).catch(function(error) {
+		if (error.name === 'NotFoundError')
+			return null;
+		throw error;
+	}).then(function(previous) {
+		if (name !== oldName && previous !== null)
+			throw new Error(_('The target configuration file already exists:') + ' ' + path);
+		if (previous === content)
+			return;
+		return verifyConfig(name, content).then(function() {
+			return fs.write(path, content, 384);
+		}).then(function() {
+			// Include TOML-only edits in LuCI's normal UCI apply/reload flow.
+			const revision = Number(uci.get('frpc-multi', sectionId, 'config_revision')) || 0;
+			uci.set('frpc-multi', sectionId, 'config_revision',
+				String(Math.max(Date.now(), revision + 1)));
+		});
+	});
 }
 
 function instanceRunning(serviceData, name) {
@@ -36,7 +82,7 @@ return view.extend({
 	},
 
 	render: function(data) {
-		const serviceData = data[1];
+		let serviceData = data[1];
 		const version = (data[2].stdout || data[2].stderr || 'unknown').trim();
 		const originalNames = {};
 		let m, s, o;
@@ -73,6 +119,7 @@ return view.extend({
 		o.modalonly = false;
 
 		o = s.option(form.Value, 'name', _('Name'));
+		o.description = _('Configuration file path: /etc/frp/frpc.d/<name>.toml').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 		o.rmempty = false;
 		o.placeholder = 'home';
 		o.validate = function(section_id, value) {
@@ -89,6 +136,9 @@ return view.extend({
 
 		o = s.option(form.DummyValue, '_status', _('Status'));
 		o.modalonly = false;
+		o.renderWidget = function(section_id) {
+			return E('span', { 'data-frpc-status': section_id }, [this.cfgvalue(section_id)]);
+		};
 		o.cfgvalue = function(section_id) {
 			const name = uci.get('frpc-multi', section_id, 'name');
 			if (uci.get('frpc-multi', section_id, 'enabled') !== '1')
@@ -97,6 +147,8 @@ return view.extend({
 		};
 
 		o = s.option(form.TextValue, '_config', _('Config'));
+		o.description = _('If other files are needed, please add them manually.') + ' ' +
+			_('Changes cannot be undone after saving.');
 		o.modalonly = true;
 		o.rows = 24;
 		o.wrap = 'off';
@@ -105,7 +157,7 @@ return view.extend({
 			const name = originalNames[section_id];
 			if (!NAME_RE.test(name || ''))
 				return '';
-			return L.resolveDefault(fs.read(configPath(name)), '');
+			return readConfig(name);
 		};
 		o.write = function(section_id, value) {
 			const nameOption = this.map.lookupOption('name', section_id)[0];
@@ -116,14 +168,18 @@ return view.extend({
 				return Promise.reject(new Error(_('Invalid instance name')));
 
 			const content = String(value || '').replace(/\r\n/g, '\n');
-			const writeFile = fs.write(configPath(newName), content, 384);
+			const writeFile = writeConfig(section_id, newName, content, oldName);
 
 			if (NAME_RE.test(oldName || '') && oldName !== newName) {
 				return writeFile.then(function() {
 					return L.resolveDefault(fs.remove(configPath(oldName)), 0);
+				}).then(function() {
+					originalNames[section_id] = newName;
 				});
 			}
-			return writeFile;
+			return writeFile.then(function() {
+				originalNames[section_id] = newName;
+			});
 		};
 		o.remove = function(section_id) {
 			const nameOption = this.map.lookupOption('name', section_id)[0];
@@ -137,7 +193,7 @@ return view.extend({
 			if (!NAME_RE.test(newName || ''))
 				return Promise.reject(new Error(_('Invalid instance name')));
 
-			const writeFile = fs.write(configPath(newName), '', 384);
+			const writeFile = writeConfig(section_id, newName, '', oldName);
 			if (oldName !== newName) {
 				return writeFile.then(function() {
 					return L.resolveDefault(fs.remove(configPath(oldName)), 0);
@@ -146,6 +202,23 @@ return view.extend({
 			return writeFile;
 		};
 
-		return m.render();
+		return m.render().then(function(node) {
+			poll.add(function() {
+				return callServiceList('frpc-multi').then(function(result) {
+					serviceData = result;
+					document.querySelectorAll('[data-frpc-status]').forEach(function(status) {
+						const sectionId = status.getAttribute('data-frpc-status');
+						const name = uci.get('frpc-multi', sectionId, 'name');
+						status.textContent = instanceRunning(serviceData, name) ? _('Running') :
+							(uci.get('frpc-multi', sectionId, 'enabled') === '1' ? _('Stopped') : _('Disabled'));
+					});
+				}).catch(function() {
+					document.querySelectorAll('[data-frpc-status]').forEach(function(status) {
+						status.textContent = _('Unknown error');
+					});
+				});
+			}, 3);
+			return node;
+		});
 	}
 });

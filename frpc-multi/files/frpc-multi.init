@@ -33,6 +33,11 @@ start_instance() {
 		return 0
 	}
 
+	if ! "$PROG" verify -c "$config_file" >/dev/null 2>&1; then
+		logger -t "$NAME" "Ignoring $name: configuration validation failed"
+		return 0
+	fi
+
 	procd_open_instance "$name"
 	procd_set_param command "$PROG" -c "$config_file"
 	procd_set_param file "$config_file"

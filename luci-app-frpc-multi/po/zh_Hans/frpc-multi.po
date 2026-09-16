@@ -11,6 +11,30 @@ msgstr "添加实例"
 msgid "Config"
 msgstr "配置"
 
+msgid "Unable to read configuration file:"
+msgstr "无法读取配置文件："
+
+msgid "The target configuration file already exists:"
+msgstr "目标配置文件已存在，请使用其他名称："
+
+msgid "Changes cannot be undone after saving."
+msgstr "保存后无法恢复。"
+
+msgid "Configuration must not be empty."
+msgstr "配置不能为空。"
+
+msgid "Configuration validation failed:"
+msgstr "配置校验失败："
+
+msgid "Unknown error"
+msgstr "未知错误"
+
+msgid "Configuration file path: /etc/frp/frpc.d/<name>.toml"
+msgstr "配置文件路径：/etc/frp/frpc.d/<名称>.toml"
+
+msgid "If other files are needed, please add them manually."
+msgstr "如果需要其他文件请手动添加。"
+
 msgid "Disabled"
 msgstr "已禁用"
 

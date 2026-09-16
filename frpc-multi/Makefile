@@ -2,7 +2,7 @@ include $(TOPDIR)/rules.mk
 
 PKG_NAME:=frpc-multi
 PKG_VERSION:=0.70.1
-PKG_RELEASE:=2
+PKG_RELEASE:=4
 
 FRP_ARCH:=$(ARCH)
 FRP_HASH:=skip
@@ -81,6 +81,8 @@ define Package/frpc-multi/install
 	$(INSTALL_DIR) $(1)/etc/config
 	$(INSTALL_CONF) ./files/frpc-multi.config $(1)/etc/config/frpc-multi
 	$(INSTALL_DIR) $(1)/etc/frp/frpc.d
+	$(INSTALL_DIR) $(1)/lib/upgrade/keep.d
+	$(INSTALL_DATA) ./files/frpc-multi.keep $(1)/lib/upgrade/keep.d/frpc-multi
 endef
 
 $(eval $(call BuildPackage,frpc-multi))
