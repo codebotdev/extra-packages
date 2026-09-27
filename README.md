@@ -1,70 +1,24 @@
-# ImmortalWrt extra packages
+# ImmortalWrt 自定义 Packages
 
-## 项目结构
+本仓库用于放在 ImmortalWrt 源码的 `package/extra-packages/` 目录下。
 
-- `frpc-multi/`、`internet-check/`：服务程序及启动脚本。
-- `luci-app-frpc-multi/`、`luci-app-internet-check/`：LuCI 页面和翻译。
-- `luci-app-openclash/`：上游 OpenClash 子模块。
-- `extra-repo/`：与固件内核版本匹配的软件源配置。
-- `build.sh`、`kmod.config`、`full.config`、`mini.config`：构建入口和配置片段。
-- `config`：供外部构建流程使用的包选择片段，保留兼容。
-- `upload-kmods.sh`：上传内核软件包到 R2。
+## Packages
 
-## 构建
+- `frpc-multi`：支持多实例配置的 frp 客户端；`luci-app-frpc-multi` 提供 LuCI 管理页面。
+- `internet-check`：通过 Ping 或 HTTP 检测网络连通性，可按状态控制 LED 或执行命令；`luci-app-internet-check` 提供 LuCI 管理页面。
+- `extra-repo`：添加与固件版本、目标平台和内核 ABI 对应的额外软件源。
+- `luci-app-openclash`：以 Git 子模块引入的 OpenClash。
 
-将本仓库放在 ImmortalWrt 源码的 `package/extra-packages/` 下，执行：
+## 克隆及初始化子模块
 
-```sh
-./build.sh
-./build.sh mini
-# 也可以使用 ./build.sh --config mini -j1 V=s
-```
-
-脚本先重置 `nss_packages`、`packages`、`luci` 三个 feed 的本地修改，
-更新所有 feeds、重新应用 NSS 补丁并安装 feeds。随后合并源码根目录的
-`jdc-nss.config`、本仓库的 `kmod.config` 和所选的 `full.config`（默认）
-或 `mini.config`，覆盖源码根目录的 `.config`，执行 `make defconfig`、
-`make download` 和编译。`mini.config` 保留 AP
-所需的四个内置包，其余附加包编译为可安装模块。
-编译成功后，`build.sh` 会打印主项目的 Git 短提交号和 kernel ABI。
-
-## 本地凭据与文件
-
-上传脚本通过环境变量读取凭据，不会自动加载 `.env`。首次使用：
+在 ImmortalWrt 源码根目录执行：
 
 ```sh
-cp .env.example .env
-chmod 600 .env
-# 在本地编辑 .env，填写凭据后再执行：
-set -a
-. ./.env
-set +a
-./upload-kmods.sh --dry-run
+git clone --recurse-submodules https://github.com/codebotdev/extra-packages.git package/extra-packages
 ```
 
-`.env`、私钥、证书、备份和编译产物已列入 `.gitignore`。
-设备导出的 TOML、日志和其他私有文件请放到 `local/` 或 `backups/`，
-不要放进包的 `files/` 或 `root/` 源码目录。
-`.env.example` 只允许保留空值和说明，不要填写真实凭据。
-
-提交前检查 `git status --short` 和 `git diff --cached`。
-忽略规则不影响已跟踪文件，也不会清除历史中的敏感信息；
-OpenClash 子模块有独立的 Git 状态和忽略规则，需要单独检查。
-
-## 子模块
-
-Clone this repository and initialize submodules at the latest commit of their
-configured branches:
+如果已经克隆了仓库，在 `package/extra-packages/` 目录下初始化子模块：
 
 ```sh
-git clone --recurse-submodules --remote-submodules <repository-url>
+git submodule update --init --recursive
 ```
-
-Update all submodules to the latest commit later:
-
-```sh
-./update-submodules.sh
-```
-
-OpenClash tracks its upstream `master` branch. Git still records the resolved
-submodule commit in this repository so builds can be reproduced.
