@@ -23,6 +23,7 @@ id_ecdsa*
 /artifacts/
 /tmp/
 /logs/
+/all.sh
 *.bak
 *.backup
 *.old

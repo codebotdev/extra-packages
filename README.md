@@ -6,7 +6,7 @@
 - `luci-app-frpc-multi/`、`luci-app-internet-check/`：LuCI 页面和翻译。
 - `luci-app-openclash/`：上游 OpenClash 子模块。
 - `extra-repo/`：与固件内核版本匹配的软件源配置。
-- `build.sh`、`kmod.config`、`packages.config`：构建入口和配置片段。
+- `build.sh`、`kmod.config`、`full.config`、`mini.config`：构建入口和配置片段。
 - `config`：供外部构建流程使用的包选择片段，保留兼容。
 - `upload-kmods.sh`：上传内核软件包到 R2。
 
@@ -16,11 +16,17 @@
 
 ```sh
 ./build.sh
+./build.sh mini
+# 也可以使用 ./build.sh --config mini -j1 V=s
 ```
 
-脚本合并源码根目录的 `jdc-nss.config`（如果存在）、本仓库的
-`kmod.config` 和 `packages.config`，覆盖源码根目录的 `.config`，
-然后执行 `make defconfig` 和编译。
+脚本先重置 `nss_packages`、`packages`、`luci` 三个 feed 的本地修改，
+更新所有 feeds、重新应用 NSS 补丁并安装 feeds。随后合并源码根目录的
+`jdc-nss.config`、本仓库的 `kmod.config` 和所选的 `full.config`（默认）
+或 `mini.config`，覆盖源码根目录的 `.config`，执行 `make defconfig`、
+`make download` 和编译。`mini.config` 保留 AP
+所需的四个内置包，其余附加包编译为可安装模块。
+编译成功后，`build.sh` 会打印主项目的 Git 短提交号和 kernel ABI。
 
 ## 本地凭据与文件
 
