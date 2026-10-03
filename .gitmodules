@@ -1,5 +1,6 @@
-[submodule "luci-app-openclash"]
-	path = luci-app-openclash
+[submodule "OpenClash"]
+	path = OpenClash
 	url = https://github.com/vernesong/OpenClash.git
 	branch = master
+	shallow = true
 	fetchRecurseSubmodules = true
