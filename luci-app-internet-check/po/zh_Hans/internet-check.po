@@ -1,0 +1,110 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: internet-check\n"
+"Language: zh_Hans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Network Check"
+msgstr "网络检测"
+
+msgid "Check Internet connectivity using Ping or HTTP GET, and optionally change an LED or run a command when the network state changes."
+msgstr "通过 Ping 或 HTTP GET 检测互联网连接状态，并可在网络状态变化时切换指示灯或执行命令。"
+
+msgid "Network status: %s"
+msgstr "网络状态：%s"
+
+msgid "NOT RUNNING"
+msgstr "未运行"
+
+msgid "ONLINE"
+msgstr "已联网"
+
+msgid "OFFLINE"
+msgstr "未联网"
+
+msgid "CHECKING"
+msgstr "检测中"
+
+msgid "Collecting data…"
+msgstr "正在获取状态…"
+
+msgid "Settings"
+msgstr "设置"
+
+msgid "General Settings"
+msgstr "常规设置"
+
+msgid "LED Settings"
+msgstr "LED 设置"
+
+msgid "Enable"
+msgstr "启用"
+
+msgid "Detection method"
+msgstr "检测方式"
+
+msgid "Interface"
+msgstr "网络接口"
+
+msgid "Bind connectivity checks to this network device. Leave empty to use the routing table."
+msgstr "将连通性检测绑定到此网络设备；留空则使用系统路由表。"
+
+msgid "Ping"
+msgstr "Ping"
+
+msgid "HTTP GET"
+msgstr "HTTP GET"
+
+msgid "Ping target"
+msgstr "Ping 目标"
+
+msgid "GET URL"
+msgstr "GET 地址"
+
+msgid "The URL must start with http:// or https://."
+msgstr "地址必须以 http:// 或 https:// 开头。"
+
+msgid "None"
+msgstr "无"
+
+msgid "Blue"
+msgstr "蓝灯"
+
+msgid "Red"
+msgstr "红灯"
+
+msgid "Green"
+msgstr "绿灯"
+
+msgid "LED when online"
+msgstr "联网时亮灯"
+
+msgid "LED when offline"
+msgstr "断网时亮灯"
+
+msgid "LED name under /sys/class/leds/."
+msgstr "/sys/class/leds/ 目录下的 LED 名称。"
+
+msgid "Enter an LED name without slashes."
+msgstr "请输入不包含斜杠的 LED 名称。"
+
+msgid "Blue LED name"
+msgstr "蓝色 LED 名称"
+
+msgid "Red LED name"
+msgstr "红色 LED 名称"
+
+msgid "Green LED name"
+msgstr "绿色 LED 名称"
+
+msgid "Command when online"
+msgstr "联网时命令"
+
+msgid "Command when offline"
+msgstr "断网时命令"
+
+msgid "Check interval"
+msgstr "检测间隔"
