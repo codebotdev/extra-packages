@@ -4,3 +4,9 @@
 	branch = master
 	shallow = true
 	fetchRecurseSubmodules = true
+[submodule "rtp2httpd"]
+	path = rtp2httpd
+	url = https://github.com/stackia/rtp2httpd.git
+	branch = main
+	shallow = true
+	fetchRecurseSubmodules = true
