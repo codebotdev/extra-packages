@@ -1,0 +1,13 @@
+msgid ""
+msgstr ""
+"Language: zh_Hans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Build information"
+msgstr "编译信息"
+
+msgid "Unavailable"
+msgstr "不可用"

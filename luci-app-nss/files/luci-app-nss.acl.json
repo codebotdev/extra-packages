@@ -1,0 +1,57 @@
+{
+	"luci-app-nss": {
+		"description": "Grant access to the NSS offload status page",
+		"read": {
+			"file": {
+				"/usr/sbin/nss-status -j": [
+					"exec"
+				],
+				"/sys/kernel/debug/qca-nss-drv/stats/cpu_load_ubi": [
+					"read"
+				],
+				"/sys/kernel/debug/ecm/ecm_nss_ipv4/accelerated_count": [
+					"read"
+				],
+				"/sys/kernel/debug/ecm/ecm_nss_ipv6/accelerated_count": [
+					"read"
+				],
+				"/sys/class/thermal": [
+					"list"
+				],
+				"/sys/class/thermal/*": [
+					"read"
+				],
+				"/sys/devices/virtual/thermal/*": [
+					"read"
+				],
+				"/proc/stat": [
+					"read"
+				],
+				"/sys/class/hwmon": [
+					"list"
+				],
+				"/sys/class/hwmon/hwmon*": [
+					"list"
+				],
+				"/sys/class/hwmon/hwmon*/*": [
+					"read"
+				],
+				"/sys/devices/virtual/thermal/*/hwmon*": [
+					"list"
+				],
+				"/sys/devices/platform/*/hwmon*": [
+					"list"
+				],
+				"/sys/devices/platform/*/hwmon*/name": [
+					"read"
+				],
+				"/sys/devices/platform/*/hwmon*/temp*": [
+					"read"
+				],
+				"/sys/devices/platform/*/ieee80211/phy*/index": [
+					"read"
+				]
+			}
+		}
+	}
+}

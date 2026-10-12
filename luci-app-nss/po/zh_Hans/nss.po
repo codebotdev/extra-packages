@@ -1,0 +1,185 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: luci-app-nss\n"
+"Language: zh_Hans\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+
+msgid "Bridge offload (bridge-mgr)"
+msgstr "网桥卸载（bridge-mgr）"
+
+msgid "ECM accelerated connections"
+msgstr "ECM 加速连接"
+
+msgid "ECM not loaded"
+msgstr "ECM 未加载"
+
+msgid "Each standalone switch port reaches the firmware as its own VLAN node on the GMAC above, and so does each bridge: the ports of a bridge share one node, listed under one of them. The offloaded share is part of the GMAC's figures above; the totals here are that port's own switch counters."
+msgstr "每个独立交换机端口以单独的 VLAN 节点接入上述 GMAC。网桥成员端口共享一个节点，显示在其中一个端口下。卸载比例计入上方 GMAC 的统计；此处总数来自各端口自身的交换机计数器。"
+
+msgid "Fast lane"
+msgstr "优先通道"
+
+msgid "Firmware"
+msgstr "固件"
+
+msgid "Firmware armed but heartbeat silent — check the system log; a reboot returns to the host stack"
+msgstr "固件已启用但没有心跳，请检查系统日志；重启后会回到主机处理模式"
+
+msgid "Firmware-attached ports"
+msgstr "已接入固件的端口"
+
+msgid "Heartbeat"
+msgstr "心跳"
+
+msgid "Host stack (NSS plane not armed)"
+msgstr "主机处理（NSS 数据路径未启用）"
+
+msgid "Link"
+msgstr "链路"
+
+msgid "NSS Offload"
+msgstr "NSS 硬件加速"
+
+msgid "NSS core load"
+msgstr "NSS 核心占用"
+
+msgid "NSS offload active (wifili)"
+msgstr "NSS 无线加速已启用（wifili）"
+
+msgid "NSS offload active (wifili, 802.11s mesh offloaded)"
+msgstr "NSS 无线加速已启用（wifili，802.11s Mesh 已卸载）"
+
+msgid "No ports attached — host stack"
+msgstr "未接入端口，由主机处理"
+
+msgid "Offload active"
+msgstr "硬件加速运行中"
+
+msgid "Offload"
+msgstr "负载"
+
+msgid "Offloaded packets are forwarded by the firmware and never reach the host. \"via host\" / \"to host\" is the host↔firmware exception path — what was not offloaded — so low numbers there mean offload is working. Broadcast and multicast discovery, connection setup, short-lived flows and traffic addressed to the router itself always take that path: a flow is only offloaded once it is established, so a quiet port that carries little else shows a low offloaded share. Port totals are on Status → Overview."
+msgstr "已卸载的数据包由固件转发，不经过主机。“发送经主机”和“接收至主机”表示未卸载的主机与固件之间的异常处理路径，计数较低通常说明卸载正在工作。广播、组播发现、连接建立、短连接和发往路由器本机的流量会经过这条路径。连接建立后才能卸载，因此低流量端口的卸载比例可能较低。端口总量见“状态 → 概览”。"
+
+msgid "PPPoE manager"
+msgstr "PPPoE 管理器"
+
+msgid "Port"
+msgstr "端口"
+
+msgid "RX offloaded"
+msgstr "接收已卸载"
+
+msgid "RX packets"
+msgstr "接收数据包"
+
+msgid "RX to host"
+msgstr "接收至主机"
+
+msgid "Reported by NSS firmware"
+msgstr "由 NSS 固件报告"
+
+msgid "SQM shaper"
+msgstr "SQM 流量整形"
+
+msgid "Sampling..."
+msgstr "采样中…"
+
+msgid "Started"
+msgstr "已启动"
+
+msgid "Switch ports and bridges on the firmware (DSA)"
+msgstr "固件中的交换机端口与网桥（DSA）"
+
+msgid "TX offloaded"
+msgstr "发送已卸载"
+
+msgid "TX packets"
+msgstr "发送数据包"
+
+msgid "TX via host"
+msgstr "发送经主机"
+
+msgid "Temperature"
+msgstr "温度"
+
+msgid "Unavailable"
+msgstr "不可用"
+
+msgid "Wi-Fi data path"
+msgstr "Wi-Fi 数据路径"
+
+msgid "a lane on the switch conduit"
+msgstr "交换机主干上的通道"
+
+msgid "ath11k not loaded"
+msgstr "ath11k 未加载"
+
+msgid "down"
+msgstr "未连接"
+
+msgid "egress"
+msgstr "出站"
+
+msgid "host mode"
+msgstr "主机处理模式"
+
+msgid "host mode (mesh configured; firmware supports mesh offload)"
+msgstr "主机处理模式（已配置 Mesh；固件支持 Mesh 卸载）"
+
+msgid "host mode (mesh configured; mesh offload needs the 11.4 NSS firmware)"
+msgstr "主机处理模式（已配置 Mesh；Mesh 卸载需要 NSS 11.4 固件）"
+
+msgid "ingress"
+msgstr "入站"
+
+msgid "loaded"
+msgstr "已加载"
+
+msgid "marking rules"
+msgstr "标记规则"
+
+msgid "multicast"
+msgstr "组播"
+
+msgid "no"
+msgstr "否"
+
+msgid "no NSS shaper"
+msgstr "未启用 NSS 整形"
+
+msgid "no NSS shaper on"
+msgstr "此接口未启用 NSS 整形："
+
+msgid "not loaded"
+msgstr "未加载"
+
+msgid "nsstbl on"
+msgstr "nsstbl 已启用于"
+
+msgid "pkts/s (NSS→host)"
+msgstr "包/秒（NSS→主机）"
+
+msgid "up"
+msgstr "已连接"
+
+msgid "upload IGS:"
+msgstr "上传 IGS："
+
+msgid "yes"
+msgstr "是"
+
+msgid "CPU usage"
+msgstr "CPU 使用率"
+
+msgid "NSS core %s usage"
+msgstr "NSS 核心 %s 使用率"
+
+msgid "NSS usage"
+msgstr "NSS 使用率"
+
+msgid "ECM connections"
+msgstr "ECM 连接数"

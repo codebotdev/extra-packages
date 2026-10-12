@@ -1,0 +1,15 @@
+{
+	"luci-app-build-info": {
+		"description": "Read build information in the overview",
+		"read": {
+			"file": {
+				"/usr/share/build-info/build-info.json": [
+					"read"
+				]
+			},
+			"uci": [
+				"system"
+			]
+		}
+	}
+}
