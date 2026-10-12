@@ -2,7 +2,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=luci-app-nss
-PKG_RELEASE:=19
+PKG_RELEASE:=20
 PKG_LICENSE:=GPL-2.0-only
 PKG_BUILD_DEPENDS:=luci-base/host
 PKG_FILE_DEPENDS:=$(CURDIR)/po

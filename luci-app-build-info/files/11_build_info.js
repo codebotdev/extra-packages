@@ -6,7 +6,7 @@
 function renderBuildInfo(info) {
 	if (!info || typeof info.timestamp != 'number' || info.timestamp <= 0 ||
 	    !Number.isFinite(new Date(info.timestamp * 1000).getTime()))
-		return _('Unavailable');
+		return '?';
 	var zone = (uci.get('system', '@system[0]', 'zonename') || 'UTC').replaceAll(' ', '_'),
 	    options = {
 		dateStyle: 'medium',

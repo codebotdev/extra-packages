@@ -135,7 +135,7 @@ function readTemperatures() {
 }
 
 function percent(value) {
-	return value == null ? _('Sampling...') : '%.1f%%'.format(value);
+	return value == null ? '?' : '%.1f%%'.format(value);
 }
 
 function pills(pairs, title) {
@@ -157,7 +157,7 @@ return baseclass.extend({
 	},
 
 	render: function(data) {
-		var cpus = data[0], cores = parseLoad(data[1]), unavailable = _('Unavailable'), rows = [];
+		var cpus = data[0], cores = parseLoad(data[1]), unavailable = '?', rows = [];
 		rows.push([ _('CPU usage'), pills(cpus.length ? cpus.map(function(c) {
 			return [ c.name, percent(c.value) ];
 		}) : [ [ null, unavailable ] ]) ]);
@@ -171,8 +171,10 @@ return baseclass.extend({
 		function count(raw) {
 			return raw != null && /^\d+$/.test(raw.trim()) ? raw.trim() : unavailable;
 		}
+		var ipv4 = count(data[2]), ipv6 = count(data[3]);
 		rows.push([ _('ECM connections'),
-			pills([ [ 'IPv4', count(data[2]) ], [ 'IPv6', count(data[3]) ] ]) ]);
+			pills(ipv4 == unavailable && ipv6 == unavailable
+				? [ [ null, unavailable ] ] : [ [ 'IPv4', ipv4 ], [ 'IPv6', ipv6 ] ]) ]);
 		rows.push([ _('Temperature'), pills(data[4].length ? data[4].map(function(s) {
 			return [ s.name, s.value == null ? unavailable : '%.1f°C'.format(s.value), s.type ];
 		}) : [ [ null, unavailable ] ]) ]);
