@@ -182,7 +182,7 @@ return baseclass.extend({
 			E('style', {}, `
 .nss-overview .nss-labels { display:flex; flex-wrap:wrap; gap:4px 8px }
 .nss-overview .nss-pill { display:inline-flex; align-items:stretch; border:1px solid var(--border-color-high,#ccc); border-radius:4px; overflow:hidden; font-size:0.9em; line-height:1.6 }
-.nss-overview .nss-label { padding:0 6px; background:var(--primary-color-medium,#2196f3); color:var(--on-primary-color,#fff) }
+.nss-overview .nss-label { padding:0 6px; background:var(--primary-color-medium,var(--bar-bg,#2196f3)); color:var(--on-primary-color,#fff) }
 .nss-overview .nss-value { padding:0 6px; min-width:3.5em; text-align:center; font-variant-numeric:tabular-nums }
 `),
 			E('table', { 'class': 'table' }, rows.map(function(r) {
