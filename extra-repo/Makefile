@@ -3,7 +3,7 @@ include $(INCLUDE_DIR)/kernel.mk
 include $(INCLUDE_DIR)/version.mk
 
 PKG_NAME:=extra-repo
-PKG_RELEASE:=2
+PKG_RELEASE:=3
 
 PKG_LICENSE:=GPL-2.0-only
 PKG_MAINTAINER:=Kamino
@@ -11,8 +11,9 @@ PKG_MAINTAINER:=Kamino
 include $(INCLUDE_DIR)/package.mk
 
 EXTRA_REPO_HOST:=repo.kamino.eu.org
-EXTRA_REPO_EXTRA_URL:=https://$(EXTRA_REPO_HOST)/immortalwrt/$(VERSION_NUMBER)/packages/$(ARCH_PACKAGES)/extra/packages.adb
-EXTRA_REPO_KMODS_URL:=https://$(EXTRA_REPO_HOST)/immortalwrt/$(VERSION_NUMBER)/targets/$(BOARD)/$(SUBTARGET)/kmods/$(LINUX_VERSION)-$(LINUX_RELEASE)-$(LINUX_VERMAGIC)/packages.adb
+EXTRA_REPO_DIST:=$(call tolower,$(VERSION_DIST))
+EXTRA_REPO_EXTRA_URL:=https://$(EXTRA_REPO_HOST)/$(EXTRA_REPO_DIST)/$(VERSION_NUMBER)/packages/$(ARCH_PACKAGES)/extra/packages.adb
+EXTRA_REPO_KMODS_URL:=https://$(EXTRA_REPO_HOST)/$(EXTRA_REPO_DIST)/$(VERSION_NUMBER)/targets/$(BOARD)/$(SUBTARGET)/kmods/$(LINUX_VERSION)-$(LINUX_RELEASE)-$(LINUX_VERMAGIC)/packages.adb
 
 define Package/extra-repo
   SECTION:=base
