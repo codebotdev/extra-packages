@@ -139,6 +139,8 @@ function percent(value) {
 }
 
 function pills(pairs, title) {
+	if (pairs.length == 1 && pairs[0][0] == null && pairs[0][1] == '?')
+		return '?';
 	return E('div', { 'class': 'nss-labels', 'title': title || '' }, pairs.map(function(p) {
 		var children = [];
 		if (p[0] != null)
