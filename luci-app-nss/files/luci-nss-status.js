@@ -80,33 +80,48 @@ function renderStatus(d) {
 		]);
 	});
 
-	// ipq50xx with the switch on DSA: one firmware VLAN node per switch port,
-	// carried inside the GMAC above. The glue has no per-port exception
-	// counters there, so this table shows the node and the port's wire totals.
-	var dsaRows = (d.dsa_ports || []).map(function(p) {
+	// ipq50xx with the switch on DSA: the firmware has one VLAN node per
+	// standalone switch port and per bridge (per VLAN on a VLAN-aware bridge),
+	// carried inside the GMAC above. A bridge's ports share its node, so the
+	// nodes are listed by bridge and the ports' wire totals in a table of
+	// their own: the glue has no per-port exception counters there.
+	var dsaNodeRows = (d.dsa_nodes || []).map(function(n) {
+		return E('tr', { 'class': 'tr' }, [
+			E('td', { 'class': 'td', 'data-title': _('Node') }, [ n.name ]),
+			E('td', { 'class': 'td', 'data-title': 'if_num' }, [ String(n.ifnum) ]),
+			E('td', { 'class': 'td', 'data-title': 'VID' }, [ String(n.vid) ]),
+			E('td', { 'class': 'td', 'data-title': _('Switch ports') }, [ (n.ports || []).join(' ') ])
+		]);
+	});
+	var dsaPortRows = (d.dsa_ports || []).map(function(p) {
 		return E('tr', { 'class': 'tr' }, [
 			E('td', { 'class': 'td', 'data-title': _('Port') }, [ p.netdev ]),
-			E('td', { 'class': 'td', 'data-title': 'if_num' }, [ String(p.ifnum) ]),
-			E('td', { 'class': 'td', 'data-title': 'VID' }, [ String(p.vid) ]),
 			E('td', { 'class': 'td', 'data-title': _('Link') }, [ p.carrier ? _('up') : _('down') ]),
 			E('td', { 'class': 'td', 'data-title': _('TX packets') }, [ String(p.tx_total) ]),
 			E('td', { 'class': 'td', 'data-title': _('RX packets') }, [ String(p.rx_total) ])
 		]);
 	});
 
-	var dsaSection = dsaRows.length ? [
+	var dsaSection = dsaNodeRows.length ? [
 		E('h3', {}, _('Switch ports and bridges on the firmware (DSA)')),
 		E('table', { 'class': 'table' }, [
 			E('tr', { 'class': 'tr table-titles' }, [
-				E('th', { 'class': 'th' }, _('Port')),
+				E('th', { 'class': 'th' }, _('Node')),
 				E('th', { 'class': 'th' }, 'if_num'),
 				E('th', { 'class': 'th' }, 'VID'),
+				E('th', { 'class': 'th' }, _('Switch ports'))
+			])
+		].concat(dsaNodeRows)),
+		E('p', {}, E('em', {}, _('Each standalone switch port reaches the firmware as its own VLAN node on the GMAC above. A bridge has one node that all its switch ports share, and a VLAN-aware bridge has one for each of its VLANs.'))),
+		E('table', { 'class': 'table' }, [
+			E('tr', { 'class': 'tr table-titles' }, [
+				E('th', { 'class': 'th' }, _('Port')),
 				E('th', { 'class': 'th' }, _('Link')),
 				E('th', { 'class': 'th' }, _('TX packets')),
 				E('th', { 'class': 'th' }, _('RX packets'))
 			])
-		].concat(dsaRows)),
-		E('p', {}, E('em', {}, _('Each standalone switch port reaches the firmware as its own VLAN node on the GMAC above, and so does each bridge: the ports of a bridge share one node, listed under one of them. The offloaded share is part of the GMAC\'s figures above; the totals here are that port\'s own switch counters.')))
+		].concat(dsaPortRows)),
+		E('p', {}, E('em', {}, _('The offloaded share is part of the GMAC\'s figures above; the totals here are each port\'s own switch counters, all its VLANs together.')))
 	] : [];
 
 	return E('div', {}, [

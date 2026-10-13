@@ -16,8 +16,6 @@ msgstr "ECM 加速连接"
 msgid "ECM not loaded"
 msgstr "ECM 未加载"
 
-msgid "Each standalone switch port reaches the firmware as its own VLAN node on the GMAC above, and so does each bridge: the ports of a bridge share one node, listed under one of them. The offloaded share is part of the GMAC's figures above; the totals here are that port's own switch counters."
-msgstr "每个独立交换机端口以单独的 VLAN 节点接入上述 GMAC。网桥成员端口共享一个节点，显示在其中一个端口下。卸载比例计入上方 GMAC 的统计；此处总数来自各端口自身的交换机计数器。"
 
 msgid "Fast lane"
 msgstr "优先通道"
@@ -183,3 +181,15 @@ msgstr "NSS 使用率"
 
 msgid "ECM connections"
 msgstr "ECM 连接数"
+
+msgid "Node"
+msgstr "节点"
+
+msgid "Switch ports"
+msgstr "交换机端口"
+
+msgid "Each standalone switch port reaches the firmware as its own VLAN node on the GMAC above. A bridge has one node that all its switch ports share, and a VLAN-aware bridge has one for each of its VLANs."
+msgstr "每个独立交换机端口以单独的 VLAN 节点接入上述 GMAC。网桥成员端口共享一个节点；启用 VLAN 过滤的网桥则为每个 VLAN 分配一个节点。"
+
+msgid "The offloaded share is part of the GMAC's figures above; the totals here are each port's own switch counters, all its VLANs together."
+msgstr "卸载比例计入上方 GMAC 的统计；此处总数来自各端口自身的交换机计数器，包含该端口所有 VLAN 的流量。"
