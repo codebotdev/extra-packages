@@ -27,7 +27,7 @@ function renderBuildInfo(info) {
 	}
 	var run = typeof info.run_id == 'string' && /^\d+$/.test(info.run_id)
 		? 'https://github.com/codebotdev/build/actions/runs/' + info.run_id : null;
-	var nodes = [ link(run, 'Built'), ' by ', link(typeof info.author_url == 'string' && /^https:\/\/u\.kamino\.eu\.org(?:\/[A-Za-z0-9_]+)?$/.test(info.author_url) ? info.author_url : 'https://u.kamino.eu.org', 'kamino'), ' at ', date ],
+	var nodes = [ link(run, 'Built'), ' by ', link(typeof info.author_url == 'string' && /^https:\/\/u\.kamino\.eu\.org(?:\/[A-Za-z0-9_]+)?$/.test(info.author_url) ? info.author_url.toLowerCase() : 'https://u.kamino.eu.org', 'kamino'), ' at ', date ],
 	    repo = typeof info.source_url == 'string' ? info.source_url.replace(/\/$/, '') : '';
 	if (typeof info.branch == 'string' && info.branch.length)
 		nodes.push(' · branch: ', link(repo ? repo + '/tree/' + encodeURIComponent(info.branch) : null, info.branch));
