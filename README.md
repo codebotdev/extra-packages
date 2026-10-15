@@ -12,3 +12,5 @@
 | `luci-app-openclash` | OpenClash rules-based proxy client (via `OpenClash` submodule) |
 | `rtp2httpd` | RTP/UDP to HTTP streaming proxy (via `rtp2httpd` submodule) |
 | `luci-app-rtp2httpd` | LuCI web interface for `rtp2httpd` (via `rtp2httpd` submodule) |
+| `tproxy-lan` | LAN TProxy routing (via `tproxy-lan` submodule) |
+| `luci-app-tproxy-lan` | LuCI web interface for `tproxy-lan` (via `tproxy-lan` submodule) |

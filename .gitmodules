@@ -10,3 +10,9 @@
 	branch = main
 	shallow = true
 	fetchRecurseSubmodules = true
+[submodule "tproxy-lan"]
+	path = tproxy-lan
+	url = https://github.com/codebotdev/tproxy-lan.git
+	branch = main
+	shallow = true
+	fetchRecurseSubmodules = true
