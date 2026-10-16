@@ -1,0 +1,41 @@
+name: Update submodules
+
+on:
+  push:
+    branches:
+      - '**'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-submodules-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          submodules: recursive
+
+      - name: Update submodules to latest tracked branches
+        run: |
+          git submodule update --init --remote --recursive
+          git submodule foreach --quiet 'git -C "$toplevel" add -- "$sm_path"'
+
+      - name: Commit and push updated submodules
+        run: |
+          if git diff --cached --quiet; then
+            echo "Submodules are already up to date."
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m "chore: update submodules"
+          git pull --rebase origin "$GITHUB_REF_NAME"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
