@@ -1,0 +1,38 @@
+{
+  "repositories": [
+    {
+      "url": "https://github.com/openwrt/luci.git",
+      "branch": "master",
+      "packages": [
+        {
+          "source": "applications/luci-app-adguardhome",
+          "destination": "luci-app-adguardhome",
+          "replacements": [
+            {
+              "file": "Makefile",
+              "old": "include ../../luci.mk",
+              "new": "include $(TOPDIR)/feeds/luci/luci.mk"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "url": "https://github.com/openwrt/packages.git",
+      "branch": "master",
+      "packages": [
+        {
+          "source": "net/adguardhome",
+          "destination": "adguardhome",
+          "replacements": [
+            {
+              "file": "Makefile",
+              "old": "include ../../lang/golang/golang-package.mk",
+              "new": "include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

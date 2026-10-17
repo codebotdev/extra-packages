@@ -1,10 +1,13 @@
-name: Update submodules
+name: Update upstream packages
 
 on:
   push:
     branches:
       - '**'
   workflow_dispatch:
+  schedule:
+    # Daily at 04:00 Asia/Shanghai (20:00 UTC).
+    - cron: '0 20 * * *'
 
 permissions:
   contents: write
@@ -28,14 +31,17 @@ jobs:
           git submodule update --init --remote --recursive
           git submodule foreach --quiet 'git -C "$toplevel" add -- "$sm_path"'
 
-      - name: Commit and push updated submodules
+      - name: Sync configured upstream packages
+        run: python3 scripts/sync-packages.py --stage
+
+      - name: Commit and push upstream updates
         run: |
           if git diff --cached --quiet; then
-            echo "Submodules are already up to date."
+            echo "Submodules and copied packages are already up to date."
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m "chore: update submodules"
+          git commit -m "chore: update submodules and upstream packages"
           git pull --rebase origin "$GITHUB_REF_NAME"
           git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
