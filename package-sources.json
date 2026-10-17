@@ -14,6 +14,17 @@
               "new": "include $(TOPDIR)/feeds/luci/luci.mk"
             }
           ]
+        },
+        {
+          "source": "applications/luci-app-natmap",
+          "destination": "luci-app-natmap",
+          "replacements": [
+            {
+              "file": "Makefile",
+              "old": "include ../../luci.mk",
+              "new": "include $(TOPDIR)/feeds/luci/luci.mk"
+            }
+          ]
         }
       ]
     },
@@ -31,6 +42,10 @@
               "new": "include $(TOPDIR)/feeds/packages/lang/golang/golang-package.mk"
             }
           ]
+        },
+        {
+          "source": "net/natmap",
+          "destination": "natmap"
         }
       ]
     }

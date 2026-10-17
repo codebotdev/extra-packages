@@ -16,6 +16,8 @@
 | `luci-app-tproxy-lan` | LuCI web interface for `tproxy-lan` (via `tproxy-lan` submodule) |
 | `adguardhome` | AdGuard Home (copied from OpenWrt packages) |
 | `luci-app-adguardhome` | LuCI web interface for AdGuard Home (copied from OpenWrt LuCI) |
+| `natmap` | NAT port mapping tool (copied from OpenWrt packages) |
+| `luci-app-natmap` | LuCI web interface for NATMap (copied from OpenWrt LuCI) |
 
 ## Upstream updates
 
